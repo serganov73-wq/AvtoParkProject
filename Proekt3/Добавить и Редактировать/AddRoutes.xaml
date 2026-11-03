@@ -1,0 +1,50 @@
+﻿<Window x:Class="Proekt3.Добавить_и_Редактировать.AddRoutes"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Proekt3.Добавить_и_Редактировать"
+        mc:Ignorable="d"
+        Title="AddRoutes" Height="650" Width="800">
+    <StackPanel>
+        <TextBlock Text="Добавте рейс " HorizontalAlignment="Center" FontWeight="Bold" FontSize="20"/>
+
+        <StackPanel Margin="10">
+            <Label  Content="Машина"/>
+            <ComboBox x:Name="CarBox" DisplayMemberPath="LicensePlate" SelectedValuePath="Id"/>
+        </StackPanel>
+
+        <StackPanel Margin="10">
+            <Label  Content="Водитель"/>
+            <ComboBox x:Name="VoditelBox" DisplayMemberPath="FullName" SelectedValuePath="Id"/>
+        </StackPanel>
+
+        <StackPanel Margin="10">
+            <Label  Content="Откуда"/>
+            <TextBox x:Name="StartLocationBox" />
+        </StackPanel>
+
+        <StackPanel Margin="10">
+            <Label  Content="Куда"/>
+            <TextBox x:Name="EndLocationBox"/>
+        </StackPanel>
+
+        <StackPanel Margin="10">
+            <Label  Content="Расстояние"/>
+            <TextBox x:Name="DistanceBox"/>
+        </StackPanel>
+
+        <StackPanel Margin="10">
+            <Label  Content="Дата начала"/>
+            <DatePicker x:Name="StartDatePicker"/>
+        </StackPanel>
+
+        <StackPanel Margin="10">
+            <Label  Content="Дата окончания"/>
+            <DatePicker x:Name="EndDatePicker"/>
+        </StackPanel>
+
+        <Button Content="Добавить" Margin="0,40,0,0" Width="116" Click="Add_Click"/>
+
+    </StackPanel>
+</Window>

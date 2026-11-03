@@ -1,0 +1,32 @@
+﻿<Window x:Class="Proekt3.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        Style="{StaticResource MaterialDesignWindow}"
+        xmlns:local="clr-namespace:Proekt3"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0" Background="#FFC1E0FD">
+            <StackPanel Cursor="Hand">
+
+                <Button Content="Вход" FontSize="10" Padding="10" Margin="0,100,0,10" Width="152" Click="Vhod_Click"/>
+                <Button Content="Регистрация" FontSize="10" Padding="10" Margin="0,10,0,10" Width="152" Click="Registr_Click"/>
+                <Button Name ="BtnVehicles"  Content="Транспортные средства" FontSize="10" Padding="10" Margin="0,10,0,10" Width="152" Click="BtnVehicles_Click"/>
+                <Button Name="BtnDrivers" Content="Водители" FontSize="10" Padding="10" Margin="0,10,0,10" Width="154" Click="BtnDrivers_Click"/>
+                <Button Name="BtnRoutes" Content="Рейсы" FontSize="10" Padding="10" Margin="0,10,0,10" Width="154" Click="BtnRoutes_Click"/>
+
+            </StackPanel>
+        </Border>
+
+        <Frame Grid.Column="1" Name="MainFrame" NavigationUIVisibility="Hidden"/>
+
+    </Grid>
+</Window>

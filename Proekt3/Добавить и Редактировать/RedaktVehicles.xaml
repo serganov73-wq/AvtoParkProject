@@ -1,0 +1,49 @@
+﻿<Window x:Class="Proekt3.Добавить_и_Редактировать.RedaktVehicles"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Proekt3.Добавить_и_Редактировать"
+        mc:Ignorable="d"
+        Title="RedaktVehicles" Height="550" Width="800">
+    <StackPanel>
+        <TextBlock Text="Изменить транспортное средство " HorizontalAlignment="Center" FontWeight="Bold" FontSize="20"/>
+
+        <StackPanel Margin="10">
+            <Label  Content="Гос.номер"/>
+            <TextBox x:Name="LicensePlateBox" />
+        </StackPanel>
+
+        <StackPanel Margin="10">
+            <Label  Content="Модель"/>
+            <TextBox x:Name="ModelBox"/>
+        </StackPanel>
+
+        <StackPanel Margin="10">
+            <Label  Content="Производитель"/>
+            <TextBox x:Name="ManufacturerBox" />
+        </StackPanel>
+
+        <StackPanel Margin="10">
+            <Label  Content="Год выпуска"/>
+            <TextBox x:Name="YearBox"/>
+        </StackPanel>
+
+        <StackPanel Margin="10">
+            <Label  Content="Пробег"/>
+            <TextBox x:Name="MileageBox"/>
+        </StackPanel>
+
+        <StackPanel Margin="10">
+            <Label  Content="Статус"/>
+            <ComboBox x:Name="StatusBox">
+                <ComboBoxItem Content="Доступен"/>
+                <ComboBoxItem Content="В ремонте"/>
+                <ComboBoxItem Content="В рейсе" />
+            </ComboBox>
+        </StackPanel>
+
+        <Button Content="Редактировать" Margin="0,40,0,0" Width="116" Click="Redakr_Click"/>
+
+    </StackPanel>
+</Window>
