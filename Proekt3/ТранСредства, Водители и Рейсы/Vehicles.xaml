@@ -62,7 +62,7 @@
                 <DataGridTextColumn Header="Год выпуска" Binding="{Binding YearOfManufacture}" Width="*"/>
                 <DataGridTextColumn Header="Пробег" Binding="{Binding Mileage}" Width="*"/>
                 <DataGridTextColumn Header="Статус" Binding="{Binding Status}" Width="*"/>
-                <DataGridTextColumn Header="" Binding="{Binding Badge}" Width="120" Foreground="Red" FontWeight="Bold"/>
+                <DataGridTextColumn Header="" Binding="{Binding Badge}" Width="*" Foreground="Red" FontWeight="Bold"/>
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,15,0,0">

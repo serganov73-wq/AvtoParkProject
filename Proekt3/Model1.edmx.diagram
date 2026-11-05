@@ -4,11 +4,11 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="c5cdc000b6c54598aff461cb420dcce9" Name="Diagram1" ZoomLevel="143">
+      <Diagram DiagramId="c5cdc000b6c54598aff461cb420dcce9" Name="Diagram1" ZoomLevel="92">
         <EntityTypeShape EntityType="AvtoParkModel.Drivers" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="AvtoParkModel.Routes" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="AvtoParkModel.Routes" Width="1.5" PointX="3.625" PointY="2.5" IsExpanded="true" />
         <EntityTypeShape EntityType="AvtoParkModel.sysdiagrams" Width="1.5" PointX="9.75" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="AvtoParkModel.Vehicles" Width="2.5" PointX="5.875" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AvtoParkModel.Vehicles" Width="2.5" PointX="6" PointY="2.75" IsExpanded="true" />
         <AssociationConnector Association="AvtoParkModel.FK_Routes_Drivers" ManuallyRouted="false" />
         <AssociationConnector Association="AvtoParkModel.FK_Routes_Vehicles" ManuallyRouted="false" />
         <EntityTypeShape EntityType="AvtoParkModel.Users" Width="1.5" PointX="8.875" PointY="4.25" />

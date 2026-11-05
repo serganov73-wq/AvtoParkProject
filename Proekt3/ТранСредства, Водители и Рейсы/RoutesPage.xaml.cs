@@ -1,32 +1,19 @@
 ﻿using Proekt3.Добавить_и_Редактировать;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Proekt3.ТранСредства__Водители_и_Рейсы
 {
-    /// <summary>
-    /// Логика взаимодействия для RoutesPage.xaml
-    /// </summary>
     public partial class RoutesPage : Page
     {
         private Users _currentUser;
+
         public RoutesPage(Users user)
         {
             InitializeComponent();
-
             _currentUser = user;
 
             if (_currentUser.Role != "Admin")
@@ -35,7 +22,31 @@ namespace Proekt3.ТранСредства__Водители_и_Рейсы
                 DeleteBtn.Visibility = Visibility.Collapsed;
             }
 
+            LoadFilterComboBoxes();
             LoadData();
+        }
+
+        private void LoadFilterComboBoxes()
+        {
+            try
+            {
+                using (var db = new AvtoParkEntities())
+                {
+                    var vehicles = db.Vehicles.ToList();
+                    vehicles.Insert(0, new Proekt3.Vehicles { Id = 0, LicensePlate = "Все машины" });
+                    VehicleFilterBox.ItemsSource = vehicles;
+                    VehicleFilterBox.SelectedIndex = 0;
+
+                    var drivers = db.Drivers.ToList();
+                    drivers.Insert(0, new Proekt3.Drivers { Id = 0, FullName = "Все водители" });
+                    DriverFilterBox.ItemsSource = drivers;
+                    DriverFilterBox.SelectedIndex = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка загрузки фильтров: " + ex.Message);
+            }
         }
 
         private void LoadData()
@@ -44,16 +55,33 @@ namespace Proekt3.ТранСредства__Водители_и_Рейсы
             {
                 using (var db = new AvtoParkEntities())
                 {
-                    var routes = db.Routes.Include(r => r.Vehicles) .Include(r => r.Drivers).AsQueryable();
+                    var query = db.Routes.Include(r => r.Vehicles).Include(r => r.Drivers).AsQueryable();
 
-                    string search = SearchBox.Text.Trim();
-                    if (!string.IsNullOrWhiteSpace(search))
+                    if (VehicleFilterBox.SelectedValue != null && (int)VehicleFilterBox.SelectedValue > 0)
                     {
-                        routes = routes.Where(r => r.Drivers.FullName.Contains(search) ||r.Vehicles.LicensePlate.Contains(search));
+                        int vId = (int)VehicleFilterBox.SelectedValue;
+                        query = query.Where(r => r.VehicleId == vId);
                     }
 
-                    RoutesGrid.ItemsSource = routes.ToList();
+                    if (DriverFilterBox.SelectedValue != null && (int)DriverFilterBox.SelectedValue > 0)
+                    {
+                        int dId = (int)DriverFilterBox.SelectedValue;
+                        query = query.Where(r => r.DriverId == dId);
+                    }
 
+                    if (StartDateFilter.SelectedDate != null)
+                    {
+                        DateTime start = StartDateFilter.SelectedDate.Value;
+                        query = query.Where(r => r.StartDate >= start);
+                    }
+
+                    if (EndDateFilter.SelectedDate != null)
+                    {
+                        DateTime end = EndDateFilter.SelectedDate.Value;
+                        query = query.Where(r => r.EndDate <= end);
+                    }
+
+                    RoutesGrid.ItemsSource = query.ToList();
                 }
             }
             catch (Exception ex)
@@ -62,11 +90,26 @@ namespace Proekt3.ТранСредства__Водители_и_Рейсы
             }
         }
 
+        private void ApplyFilter(object sender, RoutedEventArgs e)
+        {
+            LoadData();
+        }
+
+        private void ResetFilter(object sender, RoutedEventArgs e)
+        {
+            VehicleFilterBox.SelectedIndex = 0;
+            DriverFilterBox.SelectedIndex = 0;
+            StartDateFilter.SelectedDate = null;
+            EndDateFilter.SelectedDate = null;
+            LoadData();
+        }
+
         private void AddBtn_Click(object sender, RoutedEventArgs e)
         {
             AddRoutes add = new AddRoutes();
             if (add.ShowDialog() == true)
             {
+                LoadFilterComboBoxes();
                 LoadData();
             }
         }
@@ -80,7 +123,7 @@ namespace Proekt3.ТранСредства__Водители_и_Рейсы
             }
 
             var selectedRoutes = RoutesGrid.SelectedItem as Proekt3.Routes;
-            var result = MessageBox.Show($"Вы уверены, что хотите удалить рейс ?", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var result = MessageBox.Show($"Вы уверены, что хотите удалить рейс?", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (result == MessageBoxResult.Yes)
             {
@@ -88,7 +131,6 @@ namespace Proekt3.ТранСредства__Водители_и_Рейсы
                 {
                     using (var db = new AvtoParkEntities())
                     {
-
                         var rouresToDelete = db.Routes.Find(selectedRoutes.Id);
 
                         if (rouresToDelete != null)
@@ -103,6 +145,7 @@ namespace Proekt3.ТранСредства__Водители_и_Рейсы
                         }
                     }
                     MessageBox.Show("Рейс успешно удален!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                    LoadFilterComboBoxes();
                     LoadData();
                 }
                 catch (Exception ex)
@@ -110,18 +153,6 @@ namespace Proekt3.ТранСредства__Водители_и_Рейсы
                     MessageBox.Show("Ошибка при удалении:\n" + ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
-        }
-
-        private void ApplyFilter(object sender, RoutedEventArgs e)
-        {
-            LoadData();
-        }
-
-        private void ResetFilter(object sender, RoutedEventArgs e)
-        {
-            SearchBox.Clear();
-            SortBox.SelectedIndex = 0;
-            LoadData();
         }
     }
 }
